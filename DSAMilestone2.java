@@ -55,14 +55,14 @@ public class DSAMilestone2 {
     }
 
     private static void addMotorcycle(Scanner scanner) {
-        System.out.print("Enter brand: ");
-        String brand = scanner.nextLine();
         System.out.print("Enter engine number: ");
         String engineNumber = scanner.nextLine();
         if (engineMap.containsKey(engineNumber)) {
             System.out.println("Engine number already exists!");
             return;
         }
+        System.out.print("Enter brand: ");
+        String brand = scanner.nextLine();
         String date = new java.text.SimpleDateFormat("MM/dd/yyyy").format(new java.util.Date());
         String[] newEntry = {date, "New", brand, engineNumber, "On-hand"};
         inventory.add(newEntry);
