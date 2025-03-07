@@ -17,11 +17,12 @@ public class DSAMilestone2 {
             System.out.println("Dito ka na! The Filipino's Choice!");
             System.out.println("1. Add a motorcycle");
             System.out.println("2. View motorcycles");
-            System.out.println("3. Search motorcycle by Brand (Binary Search Tree)");
-            System.out.println("4. Search motorcycle by Engine Code (Binary Search Tree)");
+            System.out.println("3. Search motorcycle by Brand");
+            System.out.println("4. Search motorcycle by Engine Number");
             System.out.println("5. Delete motorcycle");
-            System.out.println("6. Sort motorcycles by their latest date (Merge Sort)");
-            System.out.println("7. Exit");
+            System.out.println("6. Sort motorcycles by their latest date");
+            System.out.println("7. Edit motorcycle details");
+            System.out.println("8. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -32,7 +33,8 @@ public class DSAMilestone2 {
                 case 4: searchEngineCode(scanner); break;
                 case 5: deleteMotorcycle(scanner); break;
                 case 6: sortAndDisplayMotorcycles(); break;
-                case 7: saveAndExit(); break;
+                case 7: editMotorcycle(scanner); break;
+                case 8: saveAndExit(); break;
                 default: System.out.println("Invalid choice. Try again.");
             }
         }
@@ -93,7 +95,7 @@ public class DSAMilestone2 {
     }
 
     private static void searchEngineCode(Scanner scanner) {
-        System.out.print("Enter Engine Code: ");
+        System.out.print("Enter Engine Number: ");
         String term = scanner.nextLine();
         for (String[] bike : engineBST) {
             if (bike[3].equalsIgnoreCase(term)) {
@@ -101,7 +103,7 @@ public class DSAMilestone2 {
                 return;
             }
         }
-        System.out.println("Engine code not found.");
+        System.out.println("Engine Number not found.");
     }
 
     private static void deleteMotorcycle(Scanner scanner) {
@@ -179,8 +181,45 @@ public class DSAMilestone2 {
             k++;
         }
     }
+    
+    private static void editMotorcycle(Scanner scanner) {
+        System.out.print("Enter engine number to edit: ");
+        String engineNumber = scanner.nextLine();
+        String[] bike = engineMap.get(engineNumber);
+        if (bike == null) {
+            System.out.println("Motorcycle not found.");
+            return;
+        }
+        System.out.println("Current details: " + String.join(" | ", bike));
+        System.out.print("Enter new Date Entered (MM/dd/yyyy): ");
+        bike[0] = scanner.nextLine();
+        System.out.print("Enter new Stock Label (Old/New): ");
+        bike[1] = scanner.nextLine();
+        System.out.print("Enter new Brand: ");
+        bike[2] = scanner.nextLine();
+        System.out.print("Enter new Engine Number: ");
+        String newEngineNumber = scanner.nextLine();
+        engineMap.remove(engineNumber);
+        bike[3] = newEngineNumber;
+        engineMap.put(newEngineNumber, bike);
+        System.out.print("Enter new Status (On-hand/Sold): ");
+        bike[4] = scanner.nextLine();
+        saveInventory();
+        System.out.println("Motorcycle details updated successfully!");
+    }
+
+    private static void saveInventory() {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(FILE_NAME))) {
+            for (String[] bike : inventory) {
+                pw.println(String.join(",", bike));
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving inventory.");
+        }
+    }
 
     private static void saveAndExit() {
+        saveInventory();
         System.out.println("Exiting..");
         System.out.println("Saved");
     }
