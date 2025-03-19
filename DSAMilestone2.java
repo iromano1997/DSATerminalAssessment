@@ -17,24 +17,22 @@ public class DSAMilestone2 {
             System.out.println("Dito ka na! The Filipino's Choice!");
             System.out.println("1. Add a motorcycle");
             System.out.println("2. View motorcycles");
-            System.out.println("3. Search motorcycle by Brand");
-            System.out.println("4. Search motorcycle by Engine Number");
-            System.out.println("5. Delete motorcycle");
-            System.out.println("6. Sort motorcycles by their latest date");
-            System.out.println("7. Edit motorcycle details");
-            System.out.println("8. Exit");
+            System.out.println("3. Search motorcycle by Engine Number");
+            System.out.println("4. Delete motorcycle");
+            System.out.println("5. Sort motorcycles by their latest date");
+            System.out.println("6. Edit motorcycle details");
+            System.out.println("7. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
             switch (choice) {
                 case 1: addMotorcycle(scanner); break;
                 case 2: viewMotorcycles(); break;
-                case 3: searchBrand(scanner); break;
-                case 4: searchEngineCode(scanner); break;
-                case 5: deleteMotorcycle(scanner); break;
-                case 6: sortAndDisplayMotorcycles(); break;
-                case 7: editMotorcycle(scanner); break;
-                case 8: saveAndExit(); break;
+                case 3: searchEngineCode(scanner); break;
+                case 4: deleteMotorcycle(scanner); break;
+                case 5: sortAndDisplayMotorcycles(); break;
+                case 6: editMotorcycle(scanner); break;
+                case 7: saveAndExit(); break;
                 default: System.out.println("Invalid choice. Try again.");
             }
         }
@@ -80,18 +78,6 @@ public class DSAMilestone2 {
         for (String[] bike : inventory) {
             System.out.println(String.join(" | ", bike));
         }
-    }
-
-    private static void searchBrand(Scanner scanner) {
-        System.out.print("Enter brand name: ");
-        String term = scanner.nextLine();
-        for (String[] bike : brandBST) {
-            if (bike[2].equalsIgnoreCase(term)) {
-                System.out.println(String.join(" | ", bike));
-                return;
-            }
-        }
-        System.out.println("Brand not found.");
     }
 
     private static void searchEngineCode(Scanner scanner) {
